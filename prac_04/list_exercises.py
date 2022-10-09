@@ -1,8 +1,7 @@
 def main():
     numbers = []
     for i in range(5):
-        numberIn = int(input("Number: "))
-        numbers.append(numberIn)
+        numbers.append(int(input("Number: ")))
 
     print(f"First number: {numbers[0]}")
     print(f"Last number: {numbers[-1]}")
