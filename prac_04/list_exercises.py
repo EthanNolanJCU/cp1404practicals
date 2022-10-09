@@ -9,5 +9,14 @@ def main():
     print(f"Largest number: {max(numbers)}")
     print(f"Average number: {sum(numbers)/len(numbers)}")
 
-
+    usernames = ['jimbo', 'giltson98', 'derekf', 'WhatSup', 'NicolEye', 'swei45', 'BaseInterpreterInterface',
+                 'BaseStdIn', 'Command', 'ExecState', 'InteractiveConsole', 'InterpreterInterface', 'StartServer',
+                 'bob']
+    userInput = input("Enter Username")
+    if (userInput in usernames):
+        print("Access Granteded")
+    else:
+        print("Access Denied")
 main()
+
+
