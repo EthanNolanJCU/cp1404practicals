@@ -19,7 +19,7 @@ for word in words:
 max_word_len = max(len(word) for word in word_to_count.keys())
 max_count_len = max(len(str(count)) for count in word_to_count.values())
 
-word_to_count = dict(sorted(word_to_count.items(), key=itemgetter(1), reverse=True))
+word_to_count = dict(sorted(word_to_count.items()))
 
 for word, count in word_to_count.items():
     print(f"{word:<{max_word_len}} : {count:>{max_count_len}}")
