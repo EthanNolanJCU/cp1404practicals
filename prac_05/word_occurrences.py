@@ -1,12 +1,13 @@
 """
 Word Occurences
 Estimate: 30mins
-Actual: 5:33 mins
+Actual: 7:33 mins
 """
+from operator import itemgetter
 
 word_to_count = {}
 
-line = input("Enter line: ").lower
+line = input("Enter line: ").lower()
 words = line.split()
 
 for word in words:
@@ -17,6 +18,8 @@ for word in words:
 
 max_word_len = max(len(word) for word in word_to_count.keys())
 max_count_len = max(len(str(count)) for count in word_to_count.values())
+
+word_to_count = dict(sorted(word_to_count.items(), key=itemgetter(1), reverse=True))
 
 for word, count in word_to_count.items():
     print(f"{word:<{max_word_len}} : {count:>{max_count_len}}")
