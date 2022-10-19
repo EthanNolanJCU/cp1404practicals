@@ -3,6 +3,9 @@ Practical 05
 Wimbledon.py
 Takes .csv file as input, stores data from it and displays player
 """
+SCORES_INDEX = 1
+
+
 
 def main():
     file_name = "wimbledon.csv"
@@ -18,7 +21,7 @@ def getData(file_name):
     data = []
     for line in file_handler.readlines():
         line = line.strip().split('"')
-        score = line[1]
+        score = line[SCORES_INDEX]
         line = line[0].split(",") # Splits starting data and adds scores onto end
         line[-1] = score # Replace empty
         data.append(line)
@@ -28,20 +31,19 @@ def getData(file_name):
 
 
 def playerWins(data):
-    player_to_wins = {}
+    player_to_wins = dict()
     for line in data:
-        if line[2] in player_to_wins.keys():
+        try:
             player_to_wins[line[2]] += 1
-        else:
+        except:
             player_to_wins[line[2]] = 1
     return player_to_wins
 
 
 def winningCountries(data):
-    winning_countries = []
+    winning_countries = set()
     for line in data:
-        if line[1] not in winning_countries:
-            winning_countries.append(line[1])
+        winning_countries.add(line[1])
     return winning_countries
 
 
