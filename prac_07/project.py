@@ -10,7 +10,7 @@ class Project:
         self.percentage = percentage
 
     def __str__(self):
-        return f"Name:{self.name} | Start Date:{self.start_date.strftime('%d/%m/%Y')} | Priority:{self.priority} | $:{self.cost} | %:{self.percentage}"
+        return f"{self.name}\t{self.start_date.strftime('%d/%m/%Y')}\t{self.priority}\t{self.cost}\t{self.percentage}"
 
     def __lt__(self, other):
         return self.priority < other.priority
