@@ -16,4 +16,4 @@ class Project:
         return self.priority < other.priority
 
     def is_complete(self):
-        return self.priority == 100
+        return self.percentage == 100

@@ -20,13 +20,14 @@ def main():
             file_name = input("File Name: ")
             save_data(file_name, projects)
         elif command == "D":
-            print("Display")
+            display(projects)
         elif command == "F":
-            print("Filter")
+            date = datetime.strptime(input("dd/mm/yyyy"), '%d/%m/%Y')
+            filter_projects(projects, date)
         elif command == "A":
             print("Add")
         elif command == "U":
-            print("Update")
+            projects = update(projects)
         elif command == "Q":
             print("Quit")
         else:
@@ -64,5 +65,34 @@ def save_data(file_name, data):
         print(f"{entry}", file=file_handler)
     file_handler.close()
     print(f"Data saved to: {file_name}")
+
+
+def display(projects):
+    print("Incomplete Projects:")
+    incomplete_projects = [project for project in projects if not project.is_complete()]
+    incomplete_projects.sort()
+    for project in incomplete_projects:
+        print_formatted(project)
+    print("Completed Projects:")
+    complete_projects = [project for project in projects if project.is_complete()]
+    complete_projects.sort()
+    for project in complete_projects:
+        print_formatted(project)
+
+
+def filter_projects(projects, date):
+    filtered_projects = [project for project in projects if project.start_date > date]
+    for project in filtered_projects:
+        print_formatted(project)
+
+
+def print_formatted(project):
+    print(f"{project.name}, start: {project.start_date.strftime('%d/%m/%Y')}, priority {project.priority}"
+          f", estimate: ${project.cost}, completion: {project.percentage}%")
+
+
+def update(projects):
+    return projects
+
 
 main()
