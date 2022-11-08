@@ -5,12 +5,9 @@ FILENAME = "projects.txt"
 HEADER = "Name\tStart Date\tPriority\tCost Estimate\tCompletion Percentage"
 
 
-
 def main():
     projects = load_data(FILENAME)
-
     menu()
-
     command = input(">> ").upper()
     while command != 'Q':
         if command == "L":
@@ -22,21 +19,20 @@ def main():
         elif command == "D":
             display(projects)
         elif command == "F":
-            date = datetime.strptime(input("Date (dd/mm/yyyy): "), '%d/%m/%Y')
+            date = datetime.strptime(input("Projects that start after date (dd/mm/yyyy): "), '%d/%m/%Y')
             filter_projects(projects, date)
         elif command == "A":
             projects.append(add_project())
         elif command == "U":
             projects = update(projects)
-        elif command == "Q":
-            print("Quit")
         else:
             print("Bad Command")
         menu()
         command = input(">> ").upper()
+    print("Thank you for using custom-built project management software.")
 
 
-def menu():
+def menu():  # Space at start to make console more readable
     print("""
 L: Load
 S: Save
@@ -44,7 +40,7 @@ D: Display
 F: Filter (By Date)
 A: Add
 U: Update
-Q: Quit""")  # Space at start to make console more readable
+Q: Quit""")
 
 
 def load_data(file_name):
@@ -80,8 +76,9 @@ def display(projects):
         print_formatted(project)
 
 
-def filter_projects(projects, date):
-    filtered_projects = [project for project in projects if project.start_date > date]
+def filter_projects(projects, date):  # Sort by date
+    filtered_projects = [project for project in projects if project.start_date >= date]
+    filtered_projects.sort(key=lambda x: x.start_date)
     for project in filtered_projects:
         print_formatted(project)
 
@@ -96,15 +93,44 @@ def add_project():
     return project
 
 
-def print_formatted(project):
-    print(f"{project.name}, start: {project.start_date.strftime('%d/%m/%Y')}, priority {project.priority}"
-          f", estimate: ${project.cost}, completion: {project.percentage}%")
-
-
 def update(projects):
     for index, project in enumerate(projects):
-        print(index, project)
+        print(index, end='')
+        print_formatted(project)
+    project_choice = input("Project Choice: ")
+    while not in_range(project_choice, len(projects)):
+        print("invalid Selection")
+        project_choice = input("Project Choice: ")
+    project_choice = int(project_choice)
+    print_formatted(projects[project_choice])
+    new_percentage = input("New percentage: ")
+    new_priority = input("New Priority: ")
+    try:
+        projects[project_choice].percentage = int(new_percentage)
+    except ValueError:
+        pass
+    try:
+        projects[project_choice].priority = int(new_priority)
+    except ValueError:
+        pass
     return projects
+
+
+def in_range(choice, length):
+    if not choice.isdigit():
+        return False
+    choice = int(choice)
+    if choice < 0:
+        return False
+    elif choice > length-1:
+        return False
+    else:
+        return True
+
+
+def print_formatted(project):
+    print(f" {project.name}, start: {project.start_date.strftime('%d/%m/%Y')}, priority {project.priority}"
+          f", estimate: ${project.cost}, completion: {project.percentage}%")
 
 
 main()
