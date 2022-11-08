@@ -22,10 +22,10 @@ def main():
         elif command == "D":
             display(projects)
         elif command == "F":
-            date = datetime.strptime(input("dd/mm/yyyy"), '%d/%m/%Y')
+            date = datetime.strptime(input("Date (dd/mm/yyyy): "), '%d/%m/%Y')
             filter_projects(projects, date)
         elif command == "A":
-            print("Add")
+            projects.append(add_project())
         elif command == "U":
             projects = update(projects)
         elif command == "Q":
@@ -44,7 +44,7 @@ D: Display
 F: Filter (By Date)
 A: Add
 U: Update
-Q: Quit""")
+Q: Quit""")  # Space at start to make console more readable
 
 
 def load_data(file_name):
@@ -86,12 +86,24 @@ def filter_projects(projects, date):
         print_formatted(project)
 
 
+def add_project():
+    name = input("Project Name: ")
+    date = datetime.strptime(input("Start Date (dd/mm/yyyy): "), "%d/%m/%Y")
+    priority = int(input("Priority: "))
+    cost = float(input("Cost Est: ").strip('$'))
+    percentage = int(input("Percentage Completed: "))
+    project = Project(name, date, priority, cost, percentage)
+    return project
+
+
 def print_formatted(project):
     print(f"{project.name}, start: {project.start_date.strftime('%d/%m/%Y')}, priority {project.priority}"
           f", estimate: ${project.cost}, completion: {project.percentage}%")
 
 
 def update(projects):
+    for index, project in enumerate(projects):
+        print(index, project)
     return projects
 
 
