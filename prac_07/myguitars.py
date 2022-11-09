@@ -42,6 +42,7 @@ def save(filename, data):
     file_handler = open(filename, 'w')
     for entry in data:
         print(f"{entry.name},{entry.year},{entry.cost}", file=file_handler)
+    file_handler.colse()
 
 
 main()

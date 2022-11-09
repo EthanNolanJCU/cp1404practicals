@@ -1,3 +1,8 @@
+"""
+CP1404/CP5632 Practical
+Do-from-scratch Exercise: Project Management Program
+"""
+
 from prac_07.project import Project
 from datetime import datetime
 
@@ -45,11 +50,12 @@ Q: Quit""")
 
 def load_data(file_name):
     file_handler = open(file_name, 'r')
-    file_handler.readline()  # Clears Headers
+    file_handler.readline()  # Clears Header
     data = []
     for line in file_handler:
         parts = line.strip().split("\t")
-        data.append(Project(parts[0], datetime.strptime(parts[1], "%d/%m/%Y"), int(parts[2]), float(parts[3]), int(parts[4])))
+        data.append(
+            Project(parts[0], datetime.strptime(parts[1], "%d/%m/%Y"), int(parts[2]), float(parts[3]), int(parts[4])))
     file_handler.close()
     return data
 
@@ -97,32 +103,37 @@ def update(projects):
     for index, project in enumerate(projects):
         print(index, end='')
         print_formatted(project)
-    project_choice = input("Project Choice: ")
+
+    try:
+        project_choice = int(input("Project Choice: "))
+    except ValueError:
+        project_choice = -1
     while not in_range(project_choice, len(projects)):
-        print("invalid Selection")
-        project_choice = input("Project Choice: ")
-    project_choice = int(project_choice)
+        try:
+            project_choice = int(input("Project Choice: "))
+        except ValueError:
+            pass
+
     print_formatted(projects[project_choice])
     new_percentage = input("New percentage: ")
     new_priority = input("New Priority: ")
     try:
         projects[project_choice].percentage = int(new_percentage)
     except ValueError:
-        pass
+        print(f"Invalid Value; Using {projects[project_choice].percentage}")
     try:
         projects[project_choice].priority = int(new_priority)
     except ValueError:
-        pass
+        print(f"Invalid Value; Using {projects[project_choice].priority}")
     return projects
 
 
 def in_range(choice, length):
-    if not choice.isdigit():
-        return False
-    choice = int(choice)
     if choice < 0:
+        print("!!Invalid Selection!!")
         return False
-    elif choice > length-1:
+    elif choice > length - 1:
+        print("!!Invalid Selection!!")
         return False
     else:
         return True
