@@ -16,4 +16,3 @@ index = 1
 for entry in my_guitars:
     vintage = '(vintage)' if entry.is_vintage() else ''
     print(f"Guitar {index}: {entry.name:>{name_index}} ({entry.year:>4}), worth $ {entry.cost:>{price_index},.2f}", vintage)
-
