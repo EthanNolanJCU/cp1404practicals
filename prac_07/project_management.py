@@ -112,7 +112,7 @@ def update(projects):
         try:
             project_choice = int(input("Project Choice: "))
         except ValueError:
-            pass
+            project_choice = -1
 
     print_formatted(projects[project_choice])
     new_percentage = input("New percentage: ")
