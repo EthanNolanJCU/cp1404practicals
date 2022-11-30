@@ -25,6 +25,24 @@ def is_long_word(word, length=5):
     return len(word) >= length
 
 
+def convert_to_sentence(s):
+    """
+    Convert the string to be a sentance, Capitalize the first letter and add a full-stop if one is missing
+    >>> convert_to_sentence('hello')
+    'Hello.'
+    >>> convert_to_sentence('It is an ex parrot.')
+    'It is an ex parrot.'
+    >>> convert_to_sentence('this is A Test.')
+    'This is A Test.'
+    """
+    s = s.split()
+    s[0] = s[0].title()
+    s = ' '.join(s)
+    if s[-1] != '.':
+        s = s + '.'
+    return s
+
+
 def run_tests():
     """Run the tests on the functions."""
     # assert test with no message - used to see if the function works properly
@@ -44,20 +62,4 @@ def run_tests():
 
 
 run_tests()
-
-# TODO: 3. Uncomment the following line and run the doctests
-# (PyCharm may see your >>> doctest comments and run doctests anyway.)
 doctest.testmod()
-
-# TODO: 4. Fix the failing is_long_word function
-# (don't change the tests, change the function!)
-
-# TODO: 5. Write and test a function to format a phrase as a sentence,
-# starting with a capital and ending with a single full stop.
-# Important: start with a function header and just use pass as the body
-# then add doctests for 3 tests:
-# 'hello' -> 'Hello.'
-# 'It is an ex parrot.' -> 'It is an ex parrot.'
-# and one more you decide (one that is valid!)
-# test this and watch the tests fail
-# then write the body of the function so that the tests pass
